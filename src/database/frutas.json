@@ -1,0 +1,26 @@
+[
+	{
+		"id": 1,
+		"tipo": "Banana",
+		"precio": 100,
+		"stock": 50
+	},
+	{
+		"id": 2,
+		"tipo": "Manzana Roja",
+		"precio": 200,
+		"stock": 30
+	},
+	{
+		"id": 3,
+		"tipo": "Manzana Verde",
+		"precio": 250,
+		"stock": 20
+	},
+	{
+		"id": 4,
+		"tipo": "Frutillas",
+		"precio": 700,
+		"stock": 15
+	}
+]
