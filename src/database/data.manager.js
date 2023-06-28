@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const ruta = path.join(__dirname, "frutas.json");
+const ruta = path.join(__dirname, "data.json");
 
 function guardarFruta(contenido) {
     return new Promise((resolve, reject) => {
@@ -36,12 +36,12 @@ function generarId(frutas) {
     return mayorId + 1;
 }
 
-async function findAll() {
+async function getAll() {
     const frutas = await leerFrutas();
     return frutas;
 }
 
-async function findOneById(id) {
+async function getOneById(id) {
     if (!id) {
         throw new Error("Error!  ID indefinido");
     }
@@ -70,7 +70,7 @@ async function update(fruta) {
     }
     const frutas = await leerFrutas();
     const index = frutas.findIndex((elemento) => elemento.id === Number(fruta.id));
-    if (!fruta) {
+    if (!index) {
         throw new Error("Error!  ID no corresponde a un fruta");
     }
     frutas[index] = fruta;
@@ -78,12 +78,12 @@ async function update(fruta) {
     return fruta;
 }
 
-async function destroy(id) {
+async function deleteOneById(id) {
     if (!id) throw new Error("Error! Id Indefinido");
     const frutas = await leerFrutas();
     const fruta = frutas.find((elemento) => elemento.id === Number(id));
     const index = frutas.findIndex((elemento) => elemento.id === Number(id));
-    if (!index) throw new Error("Error!  ID no corresponde a un fruta");
+    if (index < 0) throw new Error("Error!  ID no corresponde a un fruta");
 
     frutas.splice(index, 1);
     await guardarFruta(frutas);
@@ -91,9 +91,9 @@ async function destroy(id) {
 }
 
 module.exports = {
-    findAll,
-    findOneById,
+    getAll,
+    getOneById,
     create,
     update,
-    destroy
+    deleteOneById
 };

@@ -2,12 +2,12 @@ const express = require("express");
 require("dotenv").config();
 
 const {
-    findAll,
-    findOneById,
+    getAll,
+    getOneById,
     create,
     update,
-    destroy
-} = require("./database/frutas.manager.js");
+    deleteOneById
+} = require("./database/data.manager.js");
 
 const server = express();
 
@@ -15,14 +15,14 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
 server.get("/frutas", (req, res) => {
-    findAll()
+    getAll()
         .then((frutas) => res.status(200).send(frutas))
         .catch((error) => res.status(400).send(error.message));
 });
 
 server.get("/frutas/:id", (req, res) => {
     const { id } = req.params;
-    findOneById(Number(id))
+    getOneById(Number(id))
         .then((elemento) => res.status(200).send(elemento))
         .catch((error) => res.status(400).send(error.message));
 });
@@ -44,7 +44,7 @@ server.put("/frutas/:id", (req, res) => {
 
 server.delete("/frutas/:id", (req, res) => {
     const { id } = req.params;
-    destroy(Number(id))
+    deleteOneById(Number(id))
         .then((fruta) => res.status(200).send(fruta))
         .catch((error) => res.status(400).send(error.message));
 });
